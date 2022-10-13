@@ -12,8 +12,11 @@
     <div class="filter">Today</div>
     <div class="filter">This Week</div>
     <div class="filter">Important</div>
-    <div class="filter">Projects</div>
-    <button>New Project</button>
+    <div class="filter" id="projectsNode">
+      <div>Projects</div>
+
+    </div>
+    <button id="create-project-btn">New Project</button>
   </nav>
   <div id="task-view">
     <button class="create-task">Add Task</button>
@@ -37,16 +40,25 @@
       <button>X</button>
     </div>
   </div>
-  <div id="add-task-modal">
-    <div>ADD TASK</div>
-    <input type="text" name="task-title" id="task-title" placeholder="Title">
-    <label for="task-due-date">Do by</label>
-    <input type="date" name="task-due-date" id="task-due-date">
-    <label for="task-priority">IMPORTANT</label>
-    <input type="radio" name="task-priority" id="task-priority">
-    <textarea name="task-description" id="task-description" placeholder="Description"></textarea>
-    <button id="add-task-btn">ADD</button>
-    <button id="cancel-task-btn">CANCEL</button>
+  <div class="modal-container">
+    <div id="add-task-modal">
+      <div>NEW TASK</div>
+      <input type="text" name="task-title" id="task-title" placeholder="Title">
+      <label for="task-priority">IMPORTANT</label>
+      <input type="radio" name="task-priority" id="task-priority">
+      <label for="task-due-date">Do by</label>
+      <input type="date" name="task-due-date" id="task-due-date">
+      <label for="task-project">Project</label>
+      <select name="task-project" id="task-project">
+        <option disabled selected value=></option>
+        <option value="home">Home Improvements</option>
+        <option value="gym">Exercise</option>
+      </select>
+      <textarea name="task-description" id="task-description" placeholder="Description"></textarea>
+      <button id="add-task-btn">ADD</button>
+      <button id="cancel-task-btn">CANCEL</button>
+      <div id="close-modal">X</div>
+    </div>
   </div>
 </body>
 </html>

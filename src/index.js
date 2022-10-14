@@ -160,6 +160,7 @@ function createProjectOptions() {
 
 function removeTaskListener() {
   const removeBtns = document.querySelectorAll('.remove-task');
+  console.log(removeBtns);
   removeBtns.forEach(removeBtn => {
     removeBtn.addEventListener('click', e => {
       removeTask(e.target.parentElement);
@@ -211,6 +212,7 @@ function taskTemplate(task) {
   const editImg = img.cloneNode();
   editImg.src = edit;
   const deleteImg = img.cloneNode();
+  deleteImg.setAttribute('class', 'remove-task');
   deleteImg.src = bin;
 
   li.append(titleLabel, starLabel, infoImg, templateDate, editImg, deleteImg);
@@ -221,6 +223,7 @@ function taskTemplate(task) {
 function appendTaskList(task) {
   const ul = document.querySelector('.tasks ul');
   ul.append(task);
+  removeTaskListener();
 }
 
 initializeListeners();

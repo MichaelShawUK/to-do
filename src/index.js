@@ -314,12 +314,29 @@ let task2 = {
             project: 'Home',
             };
 
+let task3 = {
+          id: 3,
+          title: 'Walk dog',
+          dueDate: '03 Mar 2003',
+          isPriority: false,
+          description: 'Go to beach',
+          project: '',
+          };
+let task4 = {
+          id: 47,
+          title: 'Weight training',
+          dueDate: '04 Apr 2004',
+          isPriority: false,
+          description: 'Chest and shoulders',
+          project: 'Exercise',
+          };
 
 
 
-
-tasks.push(task1, task2);
+tasks.push(task1, task2, task3, task4);
 taskTemplate(tasks[0]);
 taskTemplate(tasks[1]);
+taskTemplate(tasks[2]);
+taskTemplate(tasks[3]);
 
 initializeListeners();

@@ -84,3 +84,17 @@ body {
   display: grid;
   grid-template-columns: 100px 1fr;
 }
+
+#add-task-modal {
+  display: grid;
+  justify-content: center;
+  gap: 10px;
+}
+
+li:nth-child(odd) {
+  background: #eee;
+}
+
+li:hover {
+  background: #ddd;
+}

@@ -33,32 +33,40 @@
     <div id="add-task-modal">
       <div>NEW TASK</div>
       <input type="text" name="task-title" id="task-title" placeholder="Title">
-      <label for="task-due-date">Do by</label>
-      <input type="date" name="task-due-date" id="task-due-date">
-      <label for="task-priority">IMPORTANT</label>
-      <input type="radio" name="task-priority" id="task-priority">
-      <label for="task-project">Project</label>
-      <select name="task-project" id="task-project">
-        <option disabled selected value=>Optional</option>
-      </select>
+      <div>
+        <label for="task-due-date">Date</label>
+        <input type="date" name="task-due-date" id="task-due-date">
+      </div>
+      <div>
+        <label for="task-priority">IMPORTANT</label>
+        <input type="radio" name="task-priority" id="task-priority">
+      </div>
+      <div>
+        <label for="task-project">Project</label>
+        <select name="task-project" id="task-project">
+          <option disabled selected value=>Optional</option>
+        </select>
+      </div>
       <textarea name="task-description" id="task-description" placeholder="Description"></textarea>
-      <button id="add-task-btn">ADD</button>
-      <button id="cancel-task-btn">CANCEL</button>
+      <div>
+        <button id="add-task-btn">ADD</button>
+        <button id="cancel-task-btn">CANCEL</button>
+      </div>
       <div id="close-modal">X</div>
     </div>
   </div>
   <div id="info-modal-container" class="modal-container">
     <div id="info-modal">
-      <div>Title</div>
+      <div>Task</div>
       <div id="info-title"></div>
       <div>Date</div>
       <div id="info-date"></div>
       <div>Priority</div>
       <div id="info-priority"></div>
-      <div>Description</div>
-      <div id="info-description"></div>
       <div>Project</div>
       <div id="info-project"></div>
+      <div>Details</div>
+      <div id="info-description"></div>
     </div>
   </div>
 </body>

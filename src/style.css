@@ -29,7 +29,7 @@ body {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#add-task-modal {
+#add-task-modal, #info-modal {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -48,9 +48,39 @@ body {
 
 .tasks li {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: 1fr 48px 48px 1fr 48px 48px;
+  gap: 10px;
+  align-items: center;
 }
 
-/* input[type='checkbox'] {
+.tasks input[type='checkbox'] {
   display: none;
-} */
+}
+
+.tasks img, .tasks label {
+  cursor: pointer;
+}
+
+.tasks img:hover {
+  opacity: 0.5;
+}
+
+.faded {
+  opacity: 0.1;
+}
+
+.border {
+  box-shadow: 0 2px green;
+}
+
+.title-label {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+#info-modal {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}

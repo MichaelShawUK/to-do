@@ -19,6 +19,9 @@ function initializeListeners() {
   clickOutsideModal();
   createProjectListener();
   removeTaskListener();
+  checkboxListeners();
+  editAndInfoListeners();
+
 }
 
 function openTaskModalListener() {
@@ -32,7 +35,7 @@ function hideTaskModalListener() {
 }
 
 function displayTaskModal() {
-  const addTaskModal = document.querySelector('.modal-container');
+  const addTaskModal = document.getElementById('task-modal-container');
   const closeModal = document.getElementById('close-modal');
   addTaskModal.style.display = 'block';
   createProjectOptions();
@@ -42,7 +45,7 @@ function displayTaskModal() {
 }
 
 function hideTaskModal() {
-  const addTaskModal = document.querySelector('.modal-container');
+  const addTaskModal = document.getElementById('task-modal-container');
   addTaskModal.style.display = 'none';
   clearTaskModal();
 }
@@ -67,7 +70,6 @@ function getTask() {
     description: taskDescription.value,
     project: taskProject.value,
   }
-  console.log(task);
   if (task.title && task.dueDate) {
     tasks.push(task);
     taskTemplate(task);
@@ -91,7 +93,7 @@ function clearTaskModal() {
 }
 
 function clickOutsideModal() {
-  const modalContainer = document.querySelector('.modal-container');
+  const modalContainer = document.getElementById('task-modal-container');
   modalContainer.onclick = e => {
     if (e.target.parentElement.tagName === 'BODY') hideTaskModal();
   }
@@ -160,7 +162,6 @@ function createProjectOptions() {
 
 function removeTaskListener() {
   const removeBtns = document.querySelectorAll('.remove-task');
-  console.log(removeBtns);
   removeBtns.forEach(removeBtn => {
     removeBtn.addEventListener('click', e => {
       removeTask(e.target.parentElement);
@@ -191,26 +192,39 @@ function taskTemplate(task) {
   checkbox1.setAttribute('id', `title-cb-${task.id}`);
   const checkboxImg = img.cloneNode();
   checkboxImg.src = check;
+  checkboxImg.classList.add('faded');
   const templateTitle = div.cloneNode();
   templateTitle.append(`${task.title}`);
   const titleLabel = label.cloneNode();
   titleLabel.setAttribute('for', `title-cb-${task.id}`);
+  titleLabel.classList.add('title-label');
   titleLabel.append(checkbox1, checkboxImg, templateTitle);
 
   const checkbox2 = input.cloneNode();
   checkbox2.setAttribute('id', `star-cb-${task.id}`);
   const starImg = img.cloneNode();
   starImg.src = star;
+  starImg.classList.add('faded');
+  if (task.isPriority) {
+    checkboxTicked(starImg);
+    checkbox2.setAttribute('checked', true);
+  }
   const starLabel = label.cloneNode();
   starLabel.setAttribute('for', `star-cb-${task.id}`);
   starLabel.append(checkbox2, starImg);
 
   const infoImg = img.cloneNode();
   infoImg.src = info;
+  infoImg.setAttribute('data-id', `${task.id}`);
+  infoImg.setAttribute('data-type', 'info');
+  infoImg.classList.add('get-id');
   const templateDate = div.cloneNode();
   templateDate.append(`${task.dueDate}`);
   const editImg = img.cloneNode();
   editImg.src = edit;
+  editImg.setAttribute('data-id', `${task.id}`);
+  editImg.setAttribute('data-type', 'edit');
+  editImg.classList.add('get-id');
   const deleteImg = img.cloneNode();
   deleteImg.setAttribute('class', 'remove-task');
   deleteImg.src = bin;
@@ -223,10 +237,89 @@ function taskTemplate(task) {
 function appendTaskList(task) {
   const ul = document.querySelector('.tasks ul');
   ul.append(task);
-  removeTaskListener();
+  initializeListeners();
 }
 
-initializeListeners();
+function checkboxListeners() {
+  const checkboxes = document.querySelectorAll('.tasks input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('click', e => {
+      if (e.target.checked) {
+        checkboxTicked(e.target.nextSibling);
+      } else {
+        checkboxUnticked(e.target.nextSibling);
+      }
+    })
+  })
+}
 
-taskTemplate({id: 1, title: 'Wash car', dueDate: '01 Jan 2020'});
-taskTemplate({id: 72, title: 'Paint fence', dueDate: '02 Feb 2020'});
+function checkboxTicked(node) {
+  node.classList.remove('faded');
+  node.classList.add('border');
+}
+
+function checkboxUnticked(node) {
+  node.classList.add('faded');
+  node.classList.remove('border');
+}
+
+function editAndInfoListeners() {
+
+  const nodes = document.querySelectorAll('.get-id');
+  nodes.forEach(node => {
+    node.addEventListener('click', returnTask)
+  })
+}
+
+function returnTask(e) {
+  let task = tasks.find(obj => obj.id == e.target.dataset.id);
+  console.log(task);
+  if (e.target.dataset.type === 'info') {
+    const infoModal = document.getElementById('info-modal-container');
+    const title = document.getElementById('info-title');
+    const dueDate = document.getElementById('info-date');
+    const priority = document.getElementById('info-priority');
+    const description = document.getElementById('info-description');
+    const project = document.getElementById('info-project');
+    title.append(task.title);
+    dueDate.append(task.dueDate);
+    priority.append(task.isPriority ? 'Yes' : 'No');
+    description.append(task.description);
+    project.append(task.project);
+    infoModal.style.display = 'block';
+  }
+}
+
+function hideInfoModal() {
+  const infoModal = document.getElementById('info-modal-container');
+  addTaskModal.style.display = 'none';
+}
+
+
+let task1 = {
+            id: 1,
+            title: 'Wash car',
+            dueDate: '01 Jan 2001',
+            isPriority: false,
+            description: 'Wax and polish',
+            project: '',
+            };
+
+let task2 = {
+            id: 2,
+            title: 'Paint fence',
+            dueDate: '02 Feb 2002',
+            isPriority: true,
+            description: 'Give 2 coats',
+            project: 'Home',
+            };
+
+
+
+
+
+tasks.push(task1, task2);
+taskTemplate(tasks[0]);
+taskTemplate(tasks[1]);
+
+initializeListeners();

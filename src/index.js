@@ -1,5 +1,11 @@
 import './style.css';
 import test from './test.js';
+import check from './assets/images/check.png';
+import checklist from './assets/images/checklist.png';
+import bin from './assets/images/delete.png';
+import edit from './assets/images/edit.png';
+import info from './assets/images/info.png';
+import star from './assets/images/star.png';
 
 test();
 
@@ -64,7 +70,7 @@ function getTask() {
   console.log(task);
   if (task.title && task.dueDate) {
     tasks.push(task);
-    addTask(task);
+    taskTemplate(task);
   }
   hideTaskModal();
   
@@ -82,26 +88,6 @@ function clearTaskModal() {
   taskPriority.checked = null;
   taskDescription.value = null;
   taskProject.value = null;
-}
-
-function addTask(task) {
-  const taskView = document.getElementById('task-view');
-  const taskNode = document.createElement('div');
-  taskNode.setAttribute('class', 'task');
-
-  const checkBtn = document.createElement('button');
-  checkBtn.append('#');
-  const deleteBtn = document.createElement('button');
-  deleteBtn.append('X');
-  const taskNodeTitle = document.createElement('div');
-  taskNodeTitle.setAttribute('class', 'task-title');
-  taskNodeTitle.append(task.title);
-  const taskNodeDueDate = document.createElement('div');
-  taskNodeDueDate.setAttribute('class', 'task-due-date');
-  taskNodeDueDate.append(task.dueDate);
-
-  taskNode.append(checkBtn, taskNodeTitle, taskNodeDueDate, deleteBtn);
-  taskView.append(taskNode);
 }
 
 function clickOutsideModal() {
@@ -123,7 +109,7 @@ function createProject() {
   const newProject = document.createElement('input');
   newProject.setAttribute('type', 'text');
   newProject.setAttribute('id', 'new-project');
-  addProjectBtn.append('ADD PROJECT');
+  addProjectBtn.append('ADD ');
   projectsNode.append(newProject, addProjectBtn);
   removeProjectListener();
   newProject.focus();
@@ -192,4 +178,52 @@ function assignTaskId() {
   else return highestId + 1;
 }
 
+function taskTemplate(task) {
+  const li = document.createElement('li');
+  const label = document.createElement('label');
+  const input = document.createElement('input');
+  input.setAttribute('type', 'checkbox');
+  const img = document.createElement('img');
+  const div = document.createElement('div');
+
+  const checkbox1 = input.cloneNode();
+  checkbox1.setAttribute('id', `title-cb-${task.id}`);
+  const checkboxImg = img.cloneNode();
+  checkboxImg.src = check;
+  const templateTitle = div.cloneNode();
+  templateTitle.append(`${task.title}`);
+  const titleLabel = label.cloneNode();
+  titleLabel.setAttribute('for', `title-cb-${task.id}`);
+  titleLabel.append(checkbox1, checkboxImg, templateTitle);
+
+  const checkbox2 = input.cloneNode();
+  checkbox2.setAttribute('id', `star-cb-${task.id}`);
+  const starImg = img.cloneNode();
+  starImg.src = star;
+  const starLabel = label.cloneNode();
+  starLabel.setAttribute('for', `star-cb-${task.id}`);
+  starLabel.append(checkbox2, starImg);
+
+  const infoImg = img.cloneNode();
+  infoImg.src = info;
+  const templateDate = div.cloneNode();
+  templateDate.append(`${task.dueDate}`);
+  const editImg = img.cloneNode();
+  editImg.src = edit;
+  const deleteImg = img.cloneNode();
+  deleteImg.src = bin;
+
+  li.append(titleLabel, starLabel, infoImg, templateDate, editImg, deleteImg);
+  
+  appendTaskList(li);
+}
+
+function appendTaskList(task) {
+  const ul = document.querySelector('.tasks ul');
+  ul.append(task);
+}
+
 initializeListeners();
+
+taskTemplate({id: 1, title: 'Wash car', dueDate: '01 Jan 2020'});
+taskTemplate({id: 72, title: 'Paint fence', dueDate: '02 Feb 2020'});

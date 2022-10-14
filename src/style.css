@@ -10,10 +10,10 @@ body {
   grid-template-columns: 300px 1fr;
 }
 
-.task {
+/* .task {
   display: grid;
   grid-template-columns: 20px 150px 150px 20px;
-}
+} */
 
 .modal-container {
   display: none; /* Hidden by default */
@@ -46,13 +46,11 @@ body {
   cursor: pointer;
 }
 
-.tasks label {
-  display: flex;
-  gap: 20px;
-  cursor: pointer;
-}
-
 .tasks li {
   display: grid;
-  grid-template-columns: 1fr 100px;
+  grid-template-columns: repeat(6, 1fr);
 }
+
+/* input[type='checkbox'] {
+  display: none;
+} */

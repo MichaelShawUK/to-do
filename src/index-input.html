@@ -8,6 +8,7 @@
 </head>
 <body>
   <nav>
+    <img src="./assets/images/checklist.png" alt="logo">
     <h1>To Do</h1>
     <div class="filter">Today</div>
     <div class="filter">This Week</div>
@@ -16,40 +17,26 @@
       <div>Projects</div>
 
     </div>
-    <button id="create-project-btn">New Project</button>
+    <button id="create-project-btn">NEW PROJECT</button>
   </nav>
   <div id="task-view">
-    <button class="create-task">Add Task</button>
+    <button class="create-task">NEW TASK</button>
     <div id="filter-criteria">Today</div>
     <div class="tasks">
       <ul>
-        <li>
-          <label for="task1">
-            <input type="checkbox" id="task1">
-            <div class="task-title">Mow grass</div>
-            <div class="task-date">14/10/22</div>
-          </label>
-          <button class="remove-task">REMOVE</button>
-        </li>
-        <li>
-          <label for="task2">
-            <input type="checkbox" id="task2">
-            <div class="task-title">Pant fence</div>
-            <div class="task-date">15/10/22</div>
-          </label>
-          <button class="remove-task">REMOVE</button>
-        </li>
+       
       </ul>
     </div>
+    
   </div>
   <div class="modal-container">
     <div id="add-task-modal">
       <div>NEW TASK</div>
       <input type="text" name="task-title" id="task-title" placeholder="Title">
-      <label for="task-priority">IMPORTANT</label>
-      <input type="radio" name="task-priority" id="task-priority">
       <label for="task-due-date">Do by</label>
       <input type="date" name="task-due-date" id="task-due-date">
+      <label for="task-priority">IMPORTANT</label>
+      <input type="radio" name="task-priority" id="task-priority">
       <label for="task-project">Project</label>
       <select name="task-project" id="task-project">
         <option disabled selected value=>Optional</option>

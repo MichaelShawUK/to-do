@@ -4,6 +4,7 @@ import test from './test.js';
 test();
 
 const projects = new Set();
+const tasks = [];
 
 function initializeListeners() {
   openTaskModalListener();
@@ -11,6 +12,7 @@ function initializeListeners() {
   addTaskListener();
   clickOutsideModal();
   createProjectListener();
+  removeTaskListener();
 }
 
 function openTaskModalListener() {
@@ -28,6 +30,8 @@ function displayTaskModal() {
   const closeModal = document.getElementById('close-modal');
   addTaskModal.style.display = 'block';
   createProjectOptions();
+  const taskTitle = document.getElementById('task-title');
+  taskTitle.focus();
   closeModal.onclick = hideTaskModal;
 }
 
@@ -50,14 +54,19 @@ function getTask() {
   const taskProject = document.getElementById('task-project');
 
   let task = {
+    id: assignTaskId(),
     title: taskTitle.value,
     dueDate: taskDueDate.value,
     isPriority: taskPriority.checked,
     description: taskDescription.value,
     project: taskProject.value,
   }
+  console.log(task);
+  if (task.title && task.dueDate) {
+    tasks.push(task);
+    addTask(task);
+  }
   hideTaskModal();
-  if (task.title && task.dueDate) addTask(task);
   
 }
 
@@ -117,6 +126,7 @@ function createProject() {
   addProjectBtn.append('ADD PROJECT');
   projectsNode.append(newProject, addProjectBtn);
   removeProjectListener();
+  newProject.focus();
   addProject();
 }
 
@@ -155,10 +165,31 @@ function createProjectOptions() {
   projects.forEach(project => {
     if (!options.includes(project)) {
       let projectOption = document.createElement('option');
+      projectOption.setAttribute('value', project);
       projectOption.append(project);
       taskProject.append(projectOption);
     }
   })
+}
+
+function removeTaskListener() {
+  const removeBtns = document.querySelectorAll('.remove-task');
+  removeBtns.forEach(removeBtn => {
+    removeBtn.addEventListener('click', e => {
+      removeTask(e.target.parentElement);
+    })
+  })
+}
+
+function removeTask(node) {
+  node.remove();
+}
+
+function assignTaskId() {
+  let ids = Array.from(tasks, task => task.id);
+  let highestId = Math.max(...ids);
+  if (highestId <= 0) return 1;
+  else return highestId + 1;
 }
 
 initializeListeners();

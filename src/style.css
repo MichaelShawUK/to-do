@@ -45,3 +45,14 @@ body {
   font-size: 2em;
   cursor: pointer;
 }
+
+.tasks label {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.tasks li {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+}

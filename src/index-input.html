@@ -21,23 +21,25 @@
   <div id="task-view">
     <button class="create-task">Add Task</button>
     <div id="filter-criteria">Today</div>
-    <div class="task">
-      <button>&#9634;</button>
-      <div class="task-title">Walk dog</div>
-      <div class="task-date">13/10/22</div>
-      <button>X</button>
-    </div>
-    <div class="task">
-      <button>&#9634;</button>
-      <div class="task-title">Water plants</div>
-      <div class="task-date">13/10/22</div>
-      <button>X</button>
-    </div>
-    <div class="task">
-      <button>&#9634;</button>
-      <div class="task-title">Cut grass</div>
-      <div class="task-date">13/10/22</div>
-      <button>X</button>
+    <div class="tasks">
+      <ul>
+        <li>
+          <label for="task1">
+            <input type="checkbox" id="task1">
+            <div class="task-title">Mow grass</div>
+            <div class="task-date">14/10/22</div>
+          </label>
+          <button class="remove-task">REMOVE</button>
+        </li>
+        <li>
+          <label for="task2">
+            <input type="checkbox" id="task2">
+            <div class="task-title">Pant fence</div>
+            <div class="task-date">15/10/22</div>
+          </label>
+          <button class="remove-task">REMOVE</button>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="modal-container">
@@ -50,9 +52,7 @@
       <input type="date" name="task-due-date" id="task-due-date">
       <label for="task-project">Project</label>
       <select name="task-project" id="task-project">
-        <option disabled selected value=></option>
-        <option value="home">Home Improvements</option>
-        <option value="gym">Exercise</option>
+        <option disabled selected value=>Optional</option>
       </select>
       <textarea name="task-description" id="task-description" placeholder="Description"></textarea>
       <button id="add-task-btn">ADD</button>

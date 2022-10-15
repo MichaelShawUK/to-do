@@ -38,7 +38,7 @@ body {
   position: relative;
 }
 
-#close-modal {
+#close-task-modal, #close-info-modal {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -62,7 +62,7 @@ body {
 }
 
 .tasks img:hover {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .faded {
@@ -81,7 +81,7 @@ body {
 
 .title-label {
   display: grid;
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: 48px 1fr 1fr;
   gap: 10px;
   align-items: center;
 }

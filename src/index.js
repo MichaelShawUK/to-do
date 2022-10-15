@@ -16,7 +16,8 @@ function initializeListeners() {
   openTaskModalListener();
   hideTaskModalListener();
   addTaskListener();
-  clickOutsideModal();
+  clickOutsideTaskModal();
+  clickOutsideInfoModal();
   createProjectListener();
   removeTaskListener();
   checkboxListeners();
@@ -36,12 +37,12 @@ function hideTaskModalListener() {
 
 function displayTaskModal() {
   const addTaskModal = document.getElementById('task-modal-container');
-  const closeModal = document.getElementById('close-modal');
+  const closeTaskModal = document.getElementById('close-task-modal');
   addTaskModal.style.display = 'block';
   createProjectOptions();
   const taskTitle = document.getElementById('task-title');
   taskTitle.focus();
-  closeModal.onclick = hideTaskModal;
+  closeTaskModal.onclick = hideTaskModal;
 }
 
 function hideTaskModal() {
@@ -69,6 +70,7 @@ function getTask() {
     isPriority: taskPriority.checked,
     description: taskDescription.value,
     project: taskProject.value,
+    completed: false,
   }
   if (task.title && task.dueDate) {
     tasks.push(task);
@@ -92,10 +94,17 @@ function clearTaskModal() {
   taskProject.value = null;
 }
 
-function clickOutsideModal() {
+function clickOutsideTaskModal() {
   const modalContainer = document.getElementById('task-modal-container');
   modalContainer.onclick = e => {
     if (e.target.parentElement.tagName === 'BODY') hideTaskModal();
+  }
+}
+
+function clickOutsideInfoModal() {
+  const modalContainer = document.getElementById('info-modal-container');
+  modalContainer.onclick = e => {
+    if (e.target.parentElement.tagName === 'BODY') hideInfoModal();
   }
 }
 
@@ -195,10 +204,12 @@ function taskTemplate(task) {
   checkboxImg.classList.add('faded', 'checkmark');
   const templateTitle = div.cloneNode();
   templateTitle.append(`${task.title}`);
+  const templateProject = div.cloneNode();
+  templateProject.append(`${task.project}`);
   const titleLabel = label.cloneNode();
   titleLabel.setAttribute('for', `title-cb-${task.id}`);
   titleLabel.classList.add('title-label');
-  titleLabel.append(checkbox1, checkboxImg, templateTitle);
+  titleLabel.append(checkbox1, checkboxImg, templateTitle, templateProject);
 
   const checkbox2 = input.cloneNode();
   checkbox2.setAttribute('id', `star-cb-${task.id}`);
@@ -208,6 +219,10 @@ function taskTemplate(task) {
   if (task.isPriority) {
     checkboxTicked(starImg);
     checkbox2.setAttribute('checked', true);
+  }
+  if (task.completed) {
+    checkboxTicked(checkboxImg);
+    checkbox1.setAttribute('checked', true);
   }
   const starLabel = label.cloneNode();
   starLabel.setAttribute('for', `star-cb-${task.id}`);
@@ -254,7 +269,6 @@ function checkboxListeners() {
 }
 
 function checkboxTicked(node) {
-  console.log(Array.from(node.classList).includes('star'));
   node.classList.remove('faded');
   if (Array.from(node.classList).includes('star')) {
     node.classList.add('yellow-star');
@@ -298,12 +312,24 @@ function returnTask(e) {
     description.append(task.description);
     project.append(task.project);
     infoModal.style.display = 'block';
+    const closeInfoModal = document.getElementById('close-info-modal');
+    closeInfoModal.onclick = hideInfoModal;
   }
 }
 
 function hideInfoModal() {
+  const title = document.getElementById('info-title');
+  const dueDate = document.getElementById('info-date');
+  const priority = document.getElementById('info-priority');
+  const description = document.getElementById('info-description');
+  const project = document.getElementById('info-project');
+  title.innerText = null;
+  dueDate.innerText = null;
+  priority.innerText = null;
+  description.innerText = null;
+  project.innerText = null;
   const infoModal = document.getElementById('info-modal-container');
-  addTaskModal.style.display = 'none';
+  infoModal.style.display = 'none';
 }
 
 
@@ -314,6 +340,7 @@ let task1 = {
             isPriority: false,
             description: 'Wax and polish',
             project: '',
+            completed: true,
             };
 
 let task2 = {
@@ -332,6 +359,7 @@ let task3 = {
           isPriority: false,
           description: 'Go to beach',
           project: '',
+          completed: true,
           };
 let task4 = {
           id: 47,

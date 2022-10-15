@@ -192,7 +192,7 @@ function taskTemplate(task) {
   checkbox1.setAttribute('id', `title-cb-${task.id}`);
   const checkboxImg = img.cloneNode();
   checkboxImg.src = check;
-  checkboxImg.classList.add('faded');
+  checkboxImg.classList.add('faded', 'checkmark');
   const templateTitle = div.cloneNode();
   templateTitle.append(`${task.title}`);
   const titleLabel = label.cloneNode();
@@ -204,7 +204,7 @@ function taskTemplate(task) {
   checkbox2.setAttribute('id', `star-cb-${task.id}`);
   const starImg = img.cloneNode();
   starImg.src = star;
-  starImg.classList.add('faded');
+  starImg.classList.add('faded', 'star');
   if (task.isPriority) {
     checkboxTicked(starImg);
     checkbox2.setAttribute('checked', true);
@@ -254,13 +254,24 @@ function checkboxListeners() {
 }
 
 function checkboxTicked(node) {
+  console.log(Array.from(node.classList).includes('star'));
   node.classList.remove('faded');
-  node.classList.add('border');
+  if (Array.from(node.classList).includes('star')) {
+    node.classList.add('yellow-star');
+  }
+  if (Array.from(node.classList).includes('checkmark')) {
+    node.classList.add('green-checkmark');
+  }
 }
 
 function checkboxUnticked(node) {
   node.classList.add('faded');
-  node.classList.remove('border');
+  if (Array.from(node.classList).includes('star')) {
+    node.classList.remove('yellow-star');
+  }
+  if (Array.from(node.classList).includes('checkmark')) {
+    node.classList.remove('green-checkmark');
+  }
 }
 
 function editAndInfoListeners() {

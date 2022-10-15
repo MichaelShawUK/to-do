@@ -69,8 +69,14 @@ body {
   opacity: 0.1;
 }
 
-.border {
-  box-shadow: 0 2px green;
+.green-checkmark {
+  background: rgb(108, 165, 108);
+  border-radius: 5px;
+}
+
+.yellow-star {
+  background: rgb(212, 191, 70);
+  border-radius: 50%;
 }
 
 .title-label {

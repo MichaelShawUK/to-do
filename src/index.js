@@ -292,13 +292,13 @@ function editAndInfoListeners() {
 
   const nodes = document.querySelectorAll('.get-id');
   nodes.forEach(node => {
-    node.addEventListener('click', returnTask)
+    node.addEventListener('click', showModal)
   })
 }
 
-function returnTask(e) {
+function showModal(e) {
   let task = tasks.find(obj => obj.id == e.target.dataset.id);
-  console.log(task);
+  // console.log(e.target.dataset.id);
   if (e.target.dataset.type === 'info') {
     const infoModal = document.getElementById('info-modal-container');
     const title = document.getElementById('info-title');
@@ -315,6 +315,28 @@ function returnTask(e) {
     const closeInfoModal = document.getElementById('close-info-modal');
     closeInfoModal.onclick = hideInfoModal;
   }
+  if (e.target.dataset.type === 'edit') {
+    const editModal = document.getElementById('edit-modal-container');
+    const titleEdit = document.getElementById('edit-title');
+    titleEdit.value = task.title;
+    const dueDateEdit = document.getElementById('edit-date');
+    dueDateEdit.value = task.dueDate;
+    const priorityEdit = document.getElementById('edit-priority');
+    if (task.isPriority) {
+      priorityEdit.setAttribute('checked', true);
+    } else priorityEdit.removeAttribute('checked');
+    const descriptionEdit = document.getElementById('edit-description');
+    descriptionEdit.value = task.description;
+    const projectEdit = document.getElementById('edit-project');
+    editModal.style.display = 'block';
+    const closeEditModal = document.getElementById('close-edit-modal');
+    closeEditModal.onclick = hideEditModal;
+  };
+}
+
+function hideEditModal() {
+  const editModal = document.getElementById('edit-modal-container');
+  editModal.style.display = 'none';
 }
 
 function hideInfoModal() {
@@ -336,7 +358,7 @@ function hideInfoModal() {
 let task1 = {
             id: 1,
             title: 'Wash car',
-            dueDate: '01 Jan 2001',
+            dueDate: '2001-01-21',
             isPriority: false,
             description: 'Wax and polish',
             project: '',
@@ -346,7 +368,7 @@ let task1 = {
 let task2 = {
             id: 2,
             title: 'Paint fence',
-            dueDate: '02 Feb 2002',
+            dueDate: '2002-02-22',
             isPriority: true,
             description: 'Give 2 coats',
             project: 'Home',
@@ -355,7 +377,7 @@ let task2 = {
 let task3 = {
           id: 3,
           title: 'Walk dog',
-          dueDate: '03 Mar 2003',
+          dueDate: '2003-03-23',
           isPriority: false,
           description: 'Go to beach',
           project: '',
@@ -364,7 +386,7 @@ let task3 = {
 let task4 = {
           id: 47,
           title: 'Weight training',
-          dueDate: '04 Apr 2004',
+          dueDate: '2004-04-24',
           isPriority: false,
           description: 'Chest and shoulders',
           project: 'Exercise',

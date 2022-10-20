@@ -61,13 +61,38 @@
       <div id="info-title"></div>
       <div>Date</div>
       <div id="info-date"></div>
-      <div>Priority</div>
+      <div>Important</div>
       <div id="info-priority"></div>
       <div>Project</div>
       <div id="info-project"></div>
       <div>Details</div>
       <div id="info-description"></div>
       <div id="close-info-modal">X</div>
+    </div>
+  </div>
+  <div id="edit-modal-container" class="modal-container">
+    <div id="edit-modal">
+      <label for="edit-title">Task
+        <input type="text" id="edit-title">
+      </label>
+      <label for="edit-date">Date
+        <input type="date" id="edit-date">
+      </label>
+      <label for="edit-priority">Important
+        <input type="checkbox" id="edit-priority" value="task-is-priority">
+      </label>
+      <label for="edit-project">Project
+        <select id="edit-project">
+          <option disabled selected value=>Change</option>
+          <option value="apple">APPLE</option>
+          <option value="banana">BANANA</option>
+        </select>
+      </label>
+      <label for="edit-description">Details
+        <textarea id="edit-description"></textarea>
+      </label>
+      <button>UPDATE</button>
+      <div id="close-edit-modal">X</div>
     </div>
   </div>
 </body>

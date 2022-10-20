@@ -16,7 +16,7 @@ body {
 } */
 
 .modal-container {
-  display: none; /* Hidden by default */
+  display: none; 
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   padding-top: 100px; /* Location of the box */
@@ -29,16 +29,16 @@ body {
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-#add-task-modal, #info-modal {
+#add-task-modal, #info-modal, #edit-modal {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   position: relative;
 }
 
-#close-task-modal, #close-info-modal {
+#close-task-modal, #close-info-modal, #close-edit-modal {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -89,6 +89,10 @@ body {
 #info-modal {
   display: grid;
   grid-template-columns: 100px 1fr;
+}
+
+#edit-modal {
+  display: grid;
 }
 
 #add-task-modal {

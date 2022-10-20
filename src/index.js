@@ -150,7 +150,7 @@ function addProject() {
 }
 
 function getOptions() {
-  const optionNodes = document.querySelectorAll('option');
+  const optionNodes = document.querySelectorAll('.project-option');
   let existingOptions = [];
   Array.from(optionNodes).forEach(option => existingOptions.push(option.innerText));
   return existingOptions;
@@ -162,6 +162,7 @@ function createProjectOptions() {
   projects.forEach(project => {
     if (!options.includes(project)) {
       let projectOption = document.createElement('option');
+      projectOption.classList.add('project-option');
       projectOption.setAttribute('value', project);
       projectOption.append(project);
       taskProject.append(projectOption);
@@ -199,6 +200,7 @@ function taskTemplate(task) {
 
   const checkbox1 = input.cloneNode();
   checkbox1.setAttribute('id', `title-cb-${task.id}`);
+  checkbox1.setAttribute('data-id', `${task.id}`);
   const checkboxImg = img.cloneNode();
   checkboxImg.src = check;
   checkboxImg.classList.add('faded', 'checkmark');
@@ -208,11 +210,13 @@ function taskTemplate(task) {
   templateProject.append(`${task.project}`);
   const titleLabel = label.cloneNode();
   titleLabel.setAttribute('for', `title-cb-${task.id}`);
+  titleLabel.setAttribute('data-id', `${task.id}`);
   titleLabel.classList.add('title-label');
   titleLabel.append(checkbox1, checkboxImg, templateTitle, templateProject);
 
   const checkbox2 = input.cloneNode();
   checkbox2.setAttribute('id', `star-cb-${task.id}`);
+  checkbox2.setAttribute('data-id', `${task.id}`);
   const starImg = img.cloneNode();
   starImg.src = star;
   starImg.classList.add('faded', 'star');
@@ -261,11 +265,33 @@ function checkboxListeners() {
     checkbox.addEventListener('click', e => {
       if (e.target.checked) {
         checkboxTicked(e.target.nextSibling);
+        confirmChoice(e);
       } else {
         checkboxUnticked(e.target.nextSibling);
+        removeChoice(e);
       }
     })
   })
+}
+
+function confirmChoice(e) {
+  let task = tasks.find(obj => obj.id == e.target.dataset.id);
+  if (e.target.id.includes('star')) {
+    task.isPriority = true;
+  }
+  if (e.target.id.includes('title')) {
+    task.completed = true;
+  }
+}
+
+function removeChoice(e) {
+  let task = tasks.find(obj => obj.id == e.target.dataset.id);
+  if (e.target.id.includes('star')) {
+    task.isPriority = false;
+  }
+  if (e.target.id.includes('title')) {
+    task.completed = false;
+  }
 }
 
 function checkboxTicked(node) {
@@ -372,7 +398,8 @@ let task2 = {
             isPriority: true,
             description: 'Give 2 coats',
             project: 'Home',
-            };
+            completed: false,
+        };
 
 let task3 = {
           id: 3,
@@ -390,7 +417,8 @@ let task4 = {
           isPriority: false,
           description: 'Chest and shoulders',
           project: 'Exercise',
-          };
+          completed: false,
+        };
 
 
 

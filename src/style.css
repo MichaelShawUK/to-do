@@ -46,7 +46,7 @@ body {
   cursor: pointer;
 }
 
-.tasks li {
+.tasks li, #task-headers {
   display: grid;
   grid-template-columns: 1fr 48px 48px 1fr 48px 48px;
   gap: 10px;
@@ -79,7 +79,7 @@ body {
   border-radius: 50%;
 }
 
-.title-label {
+.title-label, #title-block {
   display: grid;
   grid-template-columns: 48px 1fr 1fr;
   gap: 10px;
@@ -119,10 +119,15 @@ li:hover {
   padding: 5px 0;
 }
 
-.filter {
+.filter, .task-header {
   cursor: pointer;
 }
 
-.filter:hover {
+.filter:hover, .task-header:hover {
   background: #eee;
 }
+
+.created-project {
+  padding-left: 10px;
+}
+

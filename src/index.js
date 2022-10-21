@@ -12,7 +12,9 @@ test();
 const projects = new Set();
 const tasks = [];
 
+
 function initializeListeners() {
+
   openTaskModalListener();
   hideTaskModalListener();
   addTaskListener();
@@ -27,6 +29,8 @@ function initializeListeners() {
   importantFilterListener();
   homeFilterListener();
   todayFilterListener();
+  taskHeaderListener();
+
 }
 
 function openTaskModalListener() {
@@ -151,12 +155,15 @@ function addProject() {
     if (newProject.value && !(projects.has(newProject.value))) {
       projects.add(newProject.value);
       const projectNode = document.createElement('div');
-      projectNode.append(`/ / ${newProject.value}`);
+      projectNode.append(`${newProject.value}`);
+      projectNode.setAttribute('id', `project-${newProject.value}`);
+      projectNode.classList.add('created-project', 'filter');
       projectsNode.append(projectNode);
     }
     newProject.remove();
     addProjectBtn.remove();
     createProjectListener();
+    projectFilterListener();
   })
 }
 
@@ -269,7 +276,7 @@ function taskTemplate(task) {
 function appendTaskList(task) {
   const ul = document.querySelector('.tasks ul');
   ul.append(task);
-  initializeListeners();
+  // initializeListeners();
 }
 
 function checkboxListeners() {
@@ -464,9 +471,7 @@ function updateTask() {
 }
 
 function replaceTask(task) {
-  console.log(task);
   const taskToUpdate = document.getElementById(`${task.id}`);
-  console.log(taskToUpdate);
   taskToUpdate.replaceWith(taskTemplate(task));
   initializeListeners();
 }
@@ -519,7 +524,6 @@ function filterByToday() {
   filterCriteria.innerText = 'Today';
   let today = new Date();
   const todaysDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
-  console.log(todaysDate);
 
   const tasksDisplayed = document.querySelectorAll('.tasks ul li');
   tasksDisplayed.forEach(taskDisplayed => {
@@ -528,21 +532,72 @@ function filterByToday() {
   });
 }
 
+function projectFilterListener() {
+  const projectFilters = document.querySelectorAll('.created-project');
+  projectFilters.forEach(projectFilter => {
+    projectFilter.addEventListener('click', e => {
+      clearTasks();
+      displayAllTasks();
+      const tasksDisplayed = document.querySelectorAll('.tasks ul li');
+      const filterCriteria = document.getElementById('filter-criteria');
+      filterCriteria.innerText = `${e.target.innerText}`;
+      tasksDisplayed.forEach(taskDisplayed => {
+        let currentTask = tasks.find(task => task.id == taskDisplayed.id);
+        if (currentTask.project != e.target.innerText) taskDisplayed.remove();
+      });
+    })
+  })
+}
+
+function taskHeaderListener() {
+  const taskHeaders = document.querySelectorAll('.task-header');
+  taskHeaders.forEach(taskHeader => taskHeader.addEventListener('click', e => {
+    let key = e.target.dataset.key;
+    // console.log(e.target.classList);
+    if ((Array.from(e.target.classList)).includes('descending')) {
+      tasks.sort((a, b) => {
+        if (a[`${key}`] < b[`${key}`]) return -1;
+        if (b[`${key}`] < a[`${key}`]) return 1;
+      })
+      e.target.classList.remove('descending');
+      e.target.classList.add('ascending');
+    }
+    else if ((Array.from(e.target.classList)).includes('ascending')) {
+      tasks.sort((a, b) => {
+        if (a[`${key}`] < b[`${key}`]) return 1;
+        if (b[`${key}`] < a[`${key}`]) return -1;
+      })
+      e.target.classList.remove('ascending');
+      e.target.classList.add('descending');
+    }
+    clearTasks();
+    tasks.forEach(task => {
+    appendTaskList(taskTemplate(task));
+    })
+    removeTaskListener();
+    editAndInfoListeners();
+    checkboxListeners();
+
+  }))
+}
+
+
+
 
 let task1 = {
             id: 1,
             title: 'Wash car',
-            dueDate: '2001-01-21',
+            dueDate: '2022-10-21',
             isPriority: false,
             description: 'Wax and polish',
-            project: 'Brunei',
+            project: '',
             completed: true,
             };
 
 let task2 = {
             id: 2,
             title: 'Paint fence',
-            dueDate: '2002-02-22',
+            dueDate: '2022-10-24',
             isPriority: true,
             description: 'Give 2 coats',
             project: 'Home',
@@ -555,13 +610,13 @@ let task3 = {
           dueDate: '2003-03-23',
           isPriority: false,
           description: 'Go to beach',
-          project: 'Azerbaijan',
+          project: '',
           completed: true,
           };
 let task4 = {
           id: 47,
           title: 'Weight training',
-          dueDate: '2004-04-24',
+          dueDate: '2022-10-21',
           isPriority: false,
           description: 'Chest and shoulders',
           project: 'Exercise',
@@ -576,7 +631,37 @@ appendTaskList(taskTemplate(tasks[1]));
 appendTaskList(taskTemplate(tasks[2]));
 appendTaskList(taskTemplate(tasks[3]));
 
-projects.add('Azerbaijan');
-projects.add('Brunei');
 
 initializeListeners();
+
+// console.table(tasks);
+
+// tasks.sort((a, b) => {
+//   if (a.title < b.title) return -1;
+//   if (b.title < a.title) return 1;
+// })
+
+// console.table(tasks);
+
+// tasks.sort((a, b) => {
+//   if (a.completed < b.completed) return -1;
+//   if (b.completed < a.completed) return 1;
+// })
+// console.table(tasks);
+
+// tasks.sort((a, b) => {
+//   if (a.dueDate < b.dueDate) return -1;
+//   if (b.dueDate < a.dueDate) return 1;
+// })
+// console.table(tasks);
+
+// tasks.sort((a, b) => {
+//   if (a.project < b.project) return -1;
+//   if (b.project < a.project) return 1;
+// })
+// console.table(tasks);
+// tasks.sort((a, b) => {
+//   if (a.isPriority < b.isPriority) return -1;
+//   if (b.isPriority < a.isPriority) return 1;
+// })
+// console.table(tasks);

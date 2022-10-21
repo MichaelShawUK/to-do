@@ -18,6 +18,7 @@ function initializeListeners() {
   addTaskListener();
   clickOutsideTaskModal();
   clickOutsideInfoModal();
+  clickOutsideEditModal()
   createProjectListener();
   removeTaskListener();
   checkboxListeners();
@@ -105,6 +106,13 @@ function clickOutsideInfoModal() {
   const modalContainer = document.getElementById('info-modal-container');
   modalContainer.onclick = e => {
     if (e.target.parentElement.tagName === 'BODY') hideInfoModal();
+  }
+}
+
+function clickOutsideEditModal() {
+  const modalContainer = document.getElementById('edit-modal-container');
+  modalContainer.onclick = e => {
+    if (e.target.parentElement.tagName === 'BODY') hideEditModal();
   }
 }
 
@@ -324,7 +332,6 @@ function editAndInfoListeners() {
 
 function showModal(e) {
   let task = tasks.find(obj => obj.id == e.target.dataset.id);
-  // console.log(e.target.dataset.id);
   if (e.target.dataset.type === 'info') {
     const infoModal = document.getElementById('info-modal-container');
     const title = document.getElementById('info-title');
@@ -354,8 +361,11 @@ function showModal(e) {
     const descriptionEdit = document.getElementById('edit-description');
     descriptionEdit.value = task.description;
     const projectEdit = document.getElementById('edit-project');
+    editProjectOptions();
+    preselectTaskProject(task);
     editModal.style.display = 'block';
     const closeEditModal = document.getElementById('close-edit-modal');
+    titleEdit.focus();
     closeEditModal.onclick = hideEditModal;
   };
 }
@@ -380,6 +390,47 @@ function hideInfoModal() {
   infoModal.style.display = 'none';
 }
 
+function editProjectOptions() {
+  const editProject = document.getElementById('edit-project');
+  const option = document.createElement('option');
+  projects.forEach(project => {
+    const editProjectOption = option.cloneNode();
+    editProjectOption.classList.add('edit-project-option');
+    editProjectOption.innerText = project;
+    editProjectOption.value = project;
+    const existingOptions = [];
+    Array.from(editProject.children).forEach(child => {
+      if (child.value) {
+        existingOptions.push(child.value);
+      }
+    });
+    if (!existingOptions.includes(project)) {
+      editProject.append(editProjectOption);
+    }
+
+  });
+}
+
+function preselectTaskProject(task) {
+  let optionSet = false;
+  const editProject = document.getElementById('edit-project');
+  Array.from(editProject.children).forEach(child => {
+    if (child.value != task.project) {
+      child.removeAttribute('selected', true);
+    }
+    if (child.value == task.project) {
+      child.setAttribute('selected', true);
+      optionSet = true;
+    } 
+  
+  })
+  if (!optionSet) {
+    const editDefaultProject = document.getElementById('edit-default-project');
+    editDefaultProject.setAttribute('selected', true);
+  }
+}
+
+
 
 let task1 = {
             id: 1,
@@ -387,7 +438,7 @@ let task1 = {
             dueDate: '2001-01-21',
             isPriority: false,
             description: 'Wax and polish',
-            project: '',
+            project: 'Brunei',
             completed: true,
             };
 
@@ -407,7 +458,7 @@ let task3 = {
           dueDate: '2003-03-23',
           isPriority: false,
           description: 'Go to beach',
-          project: '',
+          project: 'Azerbaijan',
           completed: true,
           };
 let task4 = {
@@ -427,5 +478,8 @@ taskTemplate(tasks[0]);
 taskTemplate(tasks[1]);
 taskTemplate(tasks[2]);
 taskTemplate(tasks[3]);
+
+projects.add('Azerbaijan');
+projects.add('Brunei');
 
 initializeListeners();

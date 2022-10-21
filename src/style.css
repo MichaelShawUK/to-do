@@ -118,3 +118,11 @@ li:hover {
   grid-template-columns: 150px 1fr;
   padding: 5px 0;
 }
+
+.filter {
+  cursor: pointer;
+}
+
+.filter:hover {
+  background: #eee;
+}

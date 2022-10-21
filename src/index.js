@@ -24,6 +24,9 @@ function initializeListeners() {
   checkboxListeners();
   editAndInfoListeners();
   updateTaskListener();
+  importantFilterListener();
+  homeFilterListener();
+  todayFilterListener();
 }
 
 function openTaskModalListener() {
@@ -75,7 +78,7 @@ function getTask() {
   }
   if (task.title && task.dueDate) {
     tasks.push(task);
-    taskTemplate(task);
+    appendTaskList(taskTemplate(task));
   }
   hideTaskModal();
   
@@ -256,9 +259,11 @@ function taskTemplate(task) {
   deleteImg.setAttribute('class', 'remove-task');
   deleteImg.src = bin;
 
+  li.setAttribute('id', `${task.id}`);
   li.append(titleLabel, starLabel, infoImg, templateDate, editImg, deleteImg);
   
-  appendTaskList(li);
+  // appendTaskList(li);
+  return li;
 }
 
 function appendTaskList(task) {
@@ -441,7 +446,6 @@ function updateTaskListener() {
 }
 
 function updateTask() {
-  console.log('click');
   const taskId = document.getElementById('edit-id');
   const editedTitle = document.getElementById('edit-title');
   const editedDate = document.getElementById('edit-date');
@@ -450,13 +454,78 @@ function updateTask() {
   const editedDescription = document.getElementById('edit-description');
 
   let task = tasks.find(obj => obj.id == taskId.innerText);
-  console.table(task);
   if (editedTitle.value) task.title = editedTitle.value;
-  task.dueDate = editedDate.value;
+  if (editedDate.value) task.dueDate = editedDate.value;
   task.isPriority = editedPriority.checked;
   if (editedProject.value) task.project = editedProject.value;
   if (editedDescription.value) task.description = editedDescription.value;
-  console.table(task);
+  replaceTask(task);
+  hideEditModal();
+}
+
+function replaceTask(task) {
+  console.log(task);
+  const taskToUpdate = document.getElementById(`${task.id}`);
+  console.log(taskToUpdate);
+  taskToUpdate.replaceWith(taskTemplate(task));
+  initializeListeners();
+}
+
+function importantFilterListener() {
+  const importantFilter = document.getElementById('important-filter');
+  importantFilter.onclick = filterByImportant;
+}
+
+function filterByImportant() {
+  clearTasks();
+  displayAllTasks();
+  const tasksDisplayed = document.querySelectorAll('.tasks ul li');
+  const filterCriteria = document.getElementById('filter-criteria');
+  filterCriteria.innerText = 'Important';
+  tasksDisplayed.forEach(taskDisplayed => {
+    let currentTask = tasks.find(task => task.id == taskDisplayed.id);
+    if (!currentTask.isPriority) taskDisplayed.remove();
+  });
+}
+
+function homeFilterListener() {
+  const homeFilter = document.getElementById('home-filter');
+  homeFilter.onclick = displayAllTasks;
+}
+
+function displayAllTasks() {
+  const filterCriteria = document.getElementById('filter-criteria');
+  filterCriteria.innerText = 'Home';
+  clearTasks();
+  tasks.forEach(task => {
+    appendTaskList(taskTemplate(task));
+  })
+}
+
+function clearTasks() {
+  const ul = document.querySelector('.tasks ul');
+  Array.from(ul.children).forEach(child => child.remove());
+}
+
+function todayFilterListener() {
+  const todayFilter = document.getElementById('today-filter');
+  todayFilter.onclick = filterByToday;
+}
+
+function filterByToday() {
+  clearTasks();
+  displayAllTasks();
+  const filterCriteria = document.getElementById('filter-criteria');
+  filterCriteria.innerText = 'Today';
+  let today = new Date();
+  const todaysDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+  console.log(todaysDate);
+
+  const tasksDisplayed = document.querySelectorAll('.tasks ul li');
+  tasksDisplayed.forEach(taskDisplayed => {
+    let currentTask = tasks.find(task => task.id == taskDisplayed.id);
+    if (currentTask.dueDate != todaysDate) taskDisplayed.remove();
+  });
 }
 
 
@@ -502,10 +571,10 @@ let task4 = {
 
 
 tasks.push(task1, task2, task3, task4);
-taskTemplate(tasks[0]);
-taskTemplate(tasks[1]);
-taskTemplate(tasks[2]);
-taskTemplate(tasks[3]);
+appendTaskList(taskTemplate(tasks[0]));
+appendTaskList(taskTemplate(tasks[1]));
+appendTaskList(taskTemplate(tasks[2]));
+appendTaskList(taskTemplate(tasks[3]));
 
 projects.add('Azerbaijan');
 projects.add('Brunei');

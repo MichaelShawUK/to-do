@@ -23,7 +23,7 @@ function initializeListeners() {
   removeTaskListener();
   checkboxListeners();
   editAndInfoListeners();
-
+  updateTaskListener();
 }
 
 function openTaskModalListener() {
@@ -349,6 +349,8 @@ function showModal(e) {
     closeInfoModal.onclick = hideInfoModal;
   }
   if (e.target.dataset.type === 'edit') {
+    const editId = document.getElementById('edit-id');
+    editId.innerText = task.id;
     const editModal = document.getElementById('edit-modal-container');
     const titleEdit = document.getElementById('edit-title');
     titleEdit.value = task.title;
@@ -357,10 +359,13 @@ function showModal(e) {
     const priorityEdit = document.getElementById('edit-priority');
     if (task.isPriority) {
       priorityEdit.setAttribute('checked', true);
-    } else priorityEdit.removeAttribute('checked');
+    } else {
+      priorityEdit.setAttribute('checked', false);
+      priorityEdit.removeAttribute('checked');
+    }
     const descriptionEdit = document.getElementById('edit-description');
     descriptionEdit.value = task.description;
-    const projectEdit = document.getElementById('edit-project');
+    // const projectEdit = document.getElementById('edit-project');
     editProjectOptions();
     preselectTaskProject(task);
     editModal.style.display = 'block';
@@ -430,6 +435,29 @@ function preselectTaskProject(task) {
   }
 }
 
+function updateTaskListener() {
+  const updateTaskBtn = document.getElementById('update-task');
+  updateTaskBtn.onclick = updateTask;
+}
+
+function updateTask() {
+  console.log('click');
+  const taskId = document.getElementById('edit-id');
+  const editedTitle = document.getElementById('edit-title');
+  const editedDate = document.getElementById('edit-date');
+  const editedPriority = document.getElementById('edit-priority');
+  const editedProject = document.getElementById('edit-project');
+  const editedDescription = document.getElementById('edit-description');
+
+  let task = tasks.find(obj => obj.id == taskId.innerText);
+  console.table(task);
+  if (editedTitle.value) task.title = editedTitle.value;
+  task.dueDate = editedDate.value;
+  task.isPriority = editedPriority.checked;
+  if (editedProject.value) task.project = editedProject.value;
+  if (editedDescription.value) task.description = editedDescription.value;
+  console.table(task);
+}
 
 
 let task1 = {

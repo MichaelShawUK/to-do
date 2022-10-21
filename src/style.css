@@ -95,6 +95,10 @@ body {
   display: grid;
 }
 
+#edit-id { 
+  display: none;
+}
+
 #add-task-modal {
   display: grid;
   justify-content: center;
@@ -107,4 +111,10 @@ li:nth-child(odd) {
 
 li:hover {
   background: #ddd;
+}
+
+#edit-modal label {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  padding: 5px 0;
 }

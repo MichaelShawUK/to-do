@@ -10,7 +10,7 @@ import star from './assets/images/star.png';
 test();
 
 const projects = new Set();
-const tasks = [];
+let tasks = [];
 
 
 function initializeListeners() {
@@ -193,6 +193,8 @@ function removeTaskListener() {
   removeBtns.forEach(removeBtn => {
     removeBtn.addEventListener('click', e => {
       removeTask(e.target.parentElement);
+      let task = tasks.find(obj => obj.id == e.target.dataset.id);
+      tasks = tasks.filter(ele => ele !== task);
     })
   })
 }
@@ -264,6 +266,7 @@ function taskTemplate(task) {
   editImg.classList.add('get-id');
   const deleteImg = img.cloneNode();
   deleteImg.setAttribute('class', 'remove-task');
+  deleteImg.setAttribute('data-id', `${task.id}`);
   deleteImg.src = bin;
 
   li.setAttribute('id', `${task.id}`);
@@ -277,6 +280,9 @@ function appendTaskList(task) {
   const ul = document.querySelector('.tasks ul');
   ul.append(task);
   // initializeListeners();
+  removeTaskListener();
+  editAndInfoListeners();
+  checkboxListeners();
 }
 
 function checkboxListeners() {
@@ -587,7 +593,7 @@ function taskHeaderListener() {
 let task1 = {
             id: 1,
             title: 'Wash car',
-            dueDate: '2022-10-21',
+            dueDate: '2022-10-22',
             isPriority: false,
             description: 'Wax and polish',
             project: '',
@@ -616,7 +622,7 @@ let task3 = {
 let task4 = {
           id: 47,
           title: 'Weight training',
-          dueDate: '2022-10-21',
+          dueDate: '2022-10-22',
           isPriority: false,
           description: 'Chest and shoulders',
           project: 'Exercise',

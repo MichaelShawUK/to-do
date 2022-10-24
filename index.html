@@ -7,60 +7,108 @@
   <title>To-Do</title>
 <script defer src="main.js"></script></head>
 <body>
-  <nav>
-    <h1>To Do</h1>
-    <div class="filter">Today</div>
-    <div class="filter">This Week</div>
-    <div class="filter">Important</div>
-    <div class="filter" id="projectsNode">
-      <div>Projects</div>
-
+  <div id="default-view">
+    <nav>
+      <div>
+        <div id="logo">
+          <img src="./assets/images/checklist.png" alt="logo">
+          <h1>To Do</h1>
+        </div>
+        <div class="filter" id="home-filter">Home</div>
+        <div class="filter" id="today-filter">Today</div>
+        <div class="filter" id="important-filter">Important</div>
+        <div id="projectsNode">
+          <div>Projects</div>
+        </div>
+      </div>
+      <button id="create-project-btn">NEW PROJECT</button>
+    </nav>
+    <div id="task-view">
+      <button class="create-task">NEW TASK</button>
+      <div id="filter-criteria">Home</div>
+      <div class="tasks">
+        <div id="task-headers">
+          <div id="title-block">
+            <div class="task-header ascending center" data-key="completed">&#8693;</div>
+            <div class="task-header descending fraction" data-key="title">&#8693; Task</div>
+            <div class="task-header descending fraction" data-key="project">&#8693; Project</div>
+          </div>
+          <div class="task-header ascending center" data-key="isPriority">&#8693;</div>
+          <div></div>
+          <div class="task-header descending" data-key="dueDate">&#8693; Date</div>
+          <div></div>
+          <div></div>
+        </div>
+        <ul>
+    
+        </ul>
+      </div>
+    
     </div>
-    <button id="create-project-btn">NEW PROJECT</button>
-  </nav>
-  <div id="task-view">
-    <button class="create-task">NEW TASK</button>
-    <div id="filter-criteria">Today</div>
-    <div class="tasks">
-      <ul>
-        <li>
-          <label for="task1">
-            <input type="checkbox" id="task1">
-            <div class="task-title">Mow grass</div>
-            <div class="task-date">14/10/22</div>
-          </label>
-          <button class="remove-task">REMOVE</button>
-        </li>
-        <li>
-          <label for="task2">
-            <input type="checkbox" id="task2">
-            <div class="task-title">Pant fence</div>
-            <div class="task-date">15/10/22</div>
-          </label>
-          <button class="remove-task">REMOVE</button>
-        </li>
-      </ul>
-    </div>
-    <img src="./assets/images/star0.svg" alt="star" class="svg" id="important">
-    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="m11.1 37.2-7-7 2-2.05 5 4.95 8.95-8.95 2 2.1Zm0-16-7-7 2-2.05 5 4.95 8.95-8.95 2 2.1Zm14.95 12.2v-2.85h17.9v2.85Zm0-16v-2.85h17.9v2.85Z"/></svg>
-    <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M9.1 41.75q-1.15 0-2-.85-.85-.85-.85-2V9.1q0-1.15.85-2.025t2-.875h29.8q1.15 0 2.025.875T41.8 9.1v29.8q0 1.15-.875 2-.875.85-2.025.85Zm0-2.85h29.8V9.1H9.1v29.8Z"/></svg>
   </div>
-  <div class="modal-container">
+  <div id="task-modal-container" class="modal-container">
     <div id="add-task-modal">
       <div>NEW TASK</div>
       <input type="text" name="task-title" id="task-title" placeholder="Title">
-      <label for="task-priority">IMPORTANT</label>
-      <input type="radio" name="task-priority" id="task-priority">
-      <label for="task-due-date">Do by</label>
-      <input type="date" name="task-due-date" id="task-due-date">
-      <label for="task-project">Project</label>
-      <select name="task-project" id="task-project">
-        <option disabled selected value=>Optional</option>
-      </select>
+      <div class="grid-container">
+        <label for="task-due-date">Date</label>
+        <input type="date" name="task-due-date" id="task-due-date">
+      </div>
+      <div class="flex-container">
+        <label for="task-priority">IMPORTANT</label>
+        <input type="radio" name="task-priority" id="task-priority">
+      </div>
+      <div class="grid-container">
+        <label for="task-project">Project</label>
+        <select name="task-project" id="task-project">
+          <option disabled selected value=>Optional</option>
+        </select>
+      </div>
       <textarea name="task-description" id="task-description" placeholder="Description"></textarea>
-      <button id="add-task-btn">ADD</button>
-      <button id="cancel-task-btn">CANCEL</button>
-      <div id="close-modal">X</div>
+      <div class="flex-container flex-center">
+        <button id="add-task-btn">ADD</button>
+        <button id="cancel-task-btn">CANCEL</button>
+      </div>
+      <div id="close-task-modal">X</div>
+    </div>
+  </div>
+  <div id="info-modal-container" class="modal-container">
+    <div id="info-modal">
+      <div>Task</div>
+      <div id="info-title"></div>
+      <div>Date</div>
+      <div id="info-date"></div>
+      <div>Important</div>
+      <div id="info-priority"></div>
+      <div>Project</div>
+      <div id="info-project"></div>
+      <div>Details</div>
+      <div id="info-description"></div>
+      <div id="close-info-modal">X</div>
+    </div>
+  </div>
+  <div id="edit-modal-container" class="modal-container">
+    <div id="edit-modal">
+      <p id="edit-id"></p>
+      <label for="edit-title">Task
+        <input type="text" id="edit-title">
+      </label>
+      <label for="edit-date">Date
+        <input type="date" id="edit-date">
+      </label>
+      <label for="edit-priority">Important
+        <input type="checkbox" id="edit-priority" value="task-is-priority">
+      </label>
+      <label for="edit-project">Project
+        <select id="edit-project">
+          <option id="edit-default-project" disabled selected value=>Optional</option>
+        </select>
+      </label>
+      <label for="edit-description">Details
+        <textarea id="edit-description"></textarea>
+      </label>
+      <button id="update-task">UPDATE</button>
+      <div id="close-edit-modal">X</div>
     </div>
   </div>
 </body>

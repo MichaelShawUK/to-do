@@ -225,8 +225,10 @@ function taskTemplate(task) {
   checkboxImg.src = check;
   checkboxImg.classList.add('faded', 'checkmark');
   const templateTitle = div.cloneNode();
+  templateTitle.classList.add('fraction');
   templateTitle.append(`${task.title}`);
   const templateProject = div.cloneNode();
+  templateProject.classList.add('fraction');
   templateProject.append(`${task.project}`);
   const titleLabel = label.cloneNode();
   titleLabel.setAttribute('for', `title-cb-${task.id}`);
@@ -639,35 +641,3 @@ appendTaskList(taskTemplate(tasks[3]));
 
 
 initializeListeners();
-
-// console.table(tasks);
-
-// tasks.sort((a, b) => {
-//   if (a.title < b.title) return -1;
-//   if (b.title < a.title) return 1;
-// })
-
-// console.table(tasks);
-
-// tasks.sort((a, b) => {
-//   if (a.completed < b.completed) return -1;
-//   if (b.completed < a.completed) return 1;
-// })
-// console.table(tasks);
-
-// tasks.sort((a, b) => {
-//   if (a.dueDate < b.dueDate) return -1;
-//   if (b.dueDate < a.dueDate) return 1;
-// })
-// console.table(tasks);
-
-// tasks.sort((a, b) => {
-//   if (a.project < b.project) return -1;
-//   if (b.project < a.project) return 1;
-// })
-// console.table(tasks);
-// tasks.sort((a, b) => {
-//   if (a.isPriority < b.isPriority) return -1;
-//   if (b.isPriority < a.isPriority) return 1;
-// })
-// console.table(tasks);

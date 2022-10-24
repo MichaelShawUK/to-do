@@ -7,39 +7,44 @@
   <title>To-Do</title>
 </head>
 <body>
-  <nav>
-    <img src="./assets/images/checklist.png" alt="logo">
-    <h1>To Do</h1>
-    <div class="filter" id="home-filter">Home</div>
-    <div class="filter" id="today-filter">Today</div>
-    <div class="filter" id="important-filter">Important</div>
-    <div id="projectsNode">
-      <div>Projects</div>
-
-    </div>
-    <button id="create-project-btn">NEW PROJECT</button>
-  </nav>
-  <div id="task-view">
-    <button class="create-task">NEW TASK</button>
-    <div id="filter-criteria">Home</div>
-    <div class="tasks">
-      <div id="task-headers">
-        <div id="title-block">
-          <div class="task-header ascending" data-key="completed">&#8693;</div>
-          <div class="task-header descending" data-key="title">&#8693;</div>
-          <div class="task-header descending" data-key="project">&#8693;</div>
+  <div id="default-view">
+    <nav>
+      <div>
+        <div id="logo">
+          <img src="./assets/images/checklist.png" alt="logo">
+          <h1>To Do</h1>
         </div>
-        <div class="task-header ascending" data-key="isPriority">&#8693;</div>
-        <div></div>
-        <div class="task-header descending" data-key="dueDate">&#8693;</div>
-        <div></div>
-        <div></div>
+        <div class="filter" id="home-filter">Home</div>
+        <div class="filter" id="today-filter">Today</div>
+        <div class="filter" id="important-filter">Important</div>
+        <div id="projectsNode">
+          <div>Projects</div>
+        </div>
       </div>
-      <ul>
-       
-      </ul>
-    </div>
+      <button id="create-project-btn">NEW PROJECT</button>
+    </nav>
+    <div id="task-view">
+      <button class="create-task">NEW TASK</button>
+      <div id="filter-criteria">Home</div>
+      <div class="tasks">
+        <div id="task-headers">
+          <div id="title-block">
+            <div class="task-header ascending center" data-key="completed">&#8693;</div>
+            <div class="task-header descending fraction" data-key="title">&#8693; Task</div>
+            <div class="task-header descending fraction" data-key="project">&#8693; Project</div>
+          </div>
+          <div class="task-header ascending center" data-key="isPriority">&#8693;</div>
+          <div></div>
+          <div class="task-header descending" data-key="dueDate">&#8693; Date</div>
+          <div></div>
+          <div></div>
+        </div>
+        <ul>
     
+        </ul>
+      </div>
+    
+    </div>
   </div>
   <div id="task-modal-container" class="modal-container">
     <div id="add-task-modal">

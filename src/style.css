@@ -5,10 +5,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
+/* body {
   display: grid;
   grid-template-columns: 300px 1fr;
-}
+} */
 
 /* .task {
   display: grid;
@@ -32,7 +32,7 @@ body {
 #add-task-modal, #info-modal, #edit-modal {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #888;
   width: 50%;
   position: relative;
@@ -48,7 +48,7 @@ body {
 
 .tasks li, #task-headers {
   display: grid;
-  grid-template-columns: 1fr 48px 48px 1fr 48px 48px;
+  grid-template-columns: 1fr 48px 48px 82px 48px 48px;
   gap: 10px;
   align-items: center;
 }
@@ -131,3 +131,91 @@ li:hover {
   padding-left: 10px;
 }
 
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background:rgb(108, 165, 108);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background:rgb(74, 114, 74)
+}
+
+input, textarea, select {
+  padding: 8px;
+}
+
+textarea {
+  resize: none;
+  height: 6em;
+}
+
+nav {
+  padding: 10px;
+  display: grid;  
+  display: 5px;
+  /* border: 2px solid red; */
+  min-height: 50vh;
+  font-size: 20px;
+}
+
+#create-project-btn {
+  margin-top: 50px;
+  height: 3em;
+}
+
+#logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter:hover {
+  padding-left: 10px;
+}
+
+.created-project:hover {
+  font-weight: bold;
+}
+
+.center {
+  text-align: center;
+}
+
+#default-view {
+  display: grid;
+  grid-template-columns: 300px minmax(500px, 1000px);
+  justify-content: center;
+}
+
+#filter-criteria {
+  font-size: 2em;
+  font-weight: bold;
+  padding: 0.5rem 0;
+}
+
+.fraction {
+  min-width: 200px;
+}
+
+#task-view {
+  padding: 10px;
+}
+
+#edit-priority {
+  justify-self: flex-start;
+}
+
+#update-task {
+  width: 30%;
+  margin: 20px auto 0;
+}
+
+#add-project-btn {
+  margin: 0 5px;
+}

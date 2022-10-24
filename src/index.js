@@ -641,6 +641,6 @@ function demo() {
 }
 
 
-demo();
+
 
 initializeListeners();

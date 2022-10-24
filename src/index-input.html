@@ -50,22 +50,22 @@
     <div id="add-task-modal">
       <div>NEW TASK</div>
       <input type="text" name="task-title" id="task-title" placeholder="Title">
-      <div>
+      <div class="grid-container">
         <label for="task-due-date">Date</label>
         <input type="date" name="task-due-date" id="task-due-date">
       </div>
-      <div>
+      <div class="flex-container">
         <label for="task-priority">IMPORTANT</label>
         <input type="radio" name="task-priority" id="task-priority">
       </div>
-      <div>
+      <div class="grid-container">
         <label for="task-project">Project</label>
         <select name="task-project" id="task-project">
           <option disabled selected value=>Optional</option>
         </select>
       </div>
       <textarea name="task-description" id="task-description" placeholder="Description"></textarea>
-      <div>
+      <div class="flex-container flex-center">
         <button id="add-task-btn">ADD</button>
         <button id="cancel-task-btn">CANCEL</button>
       </div>

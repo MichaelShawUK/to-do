@@ -590,54 +590,57 @@ function taskHeaderListener() {
 }
 
 
+function demo() {
 
+  let task1 = {
+              id: 1,
+              title: 'Wash car',
+              dueDate: '2022-10-22',
+              isPriority: false,
+              description: 'Wax and polish',
+              project: '',
+              completed: true,
+              };
 
-let task1 = {
-            id: 1,
-            title: 'Wash car',
-            dueDate: '2022-10-22',
+  let task2 = {
+              id: 2,
+              title: 'Paint fence',
+              dueDate: '2022-10-24',
+              isPriority: true,
+              description: 'Give 2 coats',
+              project: 'Home',
+              completed: false,
+          };
+
+  let task3 = {
+            id: 3,
+            title: 'Walk dog',
+            dueDate: '2003-03-23',
             isPriority: false,
-            description: 'Wax and polish',
+            description: 'Go to beach',
             project: '',
             completed: true,
             };
-
-let task2 = {
-            id: 2,
-            title: 'Paint fence',
-            dueDate: '2022-10-24',
-            isPriority: true,
-            description: 'Give 2 coats',
-            project: 'Home',
+  let task4 = {
+            id: 47,
+            title: 'Weight training',
+            dueDate: '2022-10-22',
+            isPriority: false,
+            description: 'Chest and shoulders',
+            project: 'Exercise',
             completed: false,
-        };
-
-let task3 = {
-          id: 3,
-          title: 'Walk dog',
-          dueDate: '2003-03-23',
-          isPriority: false,
-          description: 'Go to beach',
-          project: '',
-          completed: true,
           };
-let task4 = {
-          id: 47,
-          title: 'Weight training',
-          dueDate: '2022-10-22',
-          isPriority: false,
-          description: 'Chest and shoulders',
-          project: 'Exercise',
-          completed: false,
-        };
 
 
 
-tasks.push(task1, task2, task3, task4);
-appendTaskList(taskTemplate(tasks[0]));
-appendTaskList(taskTemplate(tasks[1]));
-appendTaskList(taskTemplate(tasks[2]));
-appendTaskList(taskTemplate(tasks[3]));
+  tasks.push(task1, task2, task3, task4);
+  appendTaskList(taskTemplate(tasks[0]));
+  appendTaskList(taskTemplate(tasks[1]));
+  appendTaskList(taskTemplate(tasks[2]));
+  appendTaskList(taskTemplate(tasks[3]));
+}
 
+
+demo();
 
 initializeListeners();

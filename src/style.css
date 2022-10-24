@@ -219,3 +219,20 @@ nav {
 #add-project-btn {
   margin: 0 5px;
 }
+
+.grid-container {
+  display: grid;
+}
+
+#task-priority {
+  margin-left: 10px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-center { 
+  justify-content: center;
+  gap: 10px;
+}
